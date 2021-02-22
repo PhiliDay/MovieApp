@@ -37,17 +37,24 @@ struct HomeView: View {
                         }
                     }
                 }.onDelete(perform: self.deleteRow)
+                 .onMove(perform: onMove)
+
                 }.onAppear() {
                     Api().getMovies { (movies) in
                         self.movies = movies
                     }
                 }
+                .navigationBarItems(leading: EditButton())
                 .navigationBarTitle(Text("Top Movies"))
             }
     }
 
     private func deleteRow(at indexSet: IndexSet) {
         self.movies.remove(atOffsets: indexSet)
+    }
+
+    private func onMove(source: IndexSet, destination: Int) {
+        self.movies.move(fromOffsets: source, toOffset: destination)
     }
 }
 
