@@ -13,37 +13,44 @@ struct HomeView: View {
 
     var body: some View {
         NavigationView {
-            List(movies) { movie in
-                VStack {
-                    HStack {
-                        ImageView(withURL: movie.image)
-                        VStack(alignment: .leading) {
-                            Text(movie.fullTitle)
-                            Text("Rating: \(movie.imDbRating)")
+            List {
+                ForEach(movies) { movie in
+                    VStack {
+                        HStack {
+                            ImageView(withURL: movie.image)
+                            VStack(alignment: .leading) {
+                                Text(movie.fullTitle)
+                                Text("Rating: \(movie.imDbRating)")
+                            }
+                            Image("Icon-ChevronUpDown")
+                                .onTapGesture(perform: {
+                                    withAnimation(.easeInOut(duration: 0.5)) {
+                                        tapped.toggle()
+                                    }
+                                })
                         }
-                        Image("Icon-ChevronUpDown")
-                            .onTapGesture(perform: {
-                                withAnimation(.easeInOut(duration: 0.5)) {
-                                    tapped.toggle()
-                                }
-                            })
-                    }
 
-                    if tapped {
-                        Text(movie.crew)
-                            .padding()
-                            .clipped()
+                        if tapped {
+                            Text(movie.crew)
+                                .padding()
+                                .clipped()
+                        }
+                    }
+                }.onDelete(perform: self.deleteRow)
+                }.onAppear() {
+                    Api().getMovies { (movies) in
+                        self.movies = movies
                     }
                 }
-            }.onAppear() {
-                Api().getMovies { (movies) in
-                    self.movies = movies
-                }
+                .navigationBarTitle(Text("Top Movies"))
             }
-            .navigationBarTitle(Text("Top Movies"))
-        }
+    }
+
+    private func deleteRow(at indexSet: IndexSet) {
+        self.movies.remove(atOffsets: indexSet)
     }
 }
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
