@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 enum NetworkError: Error {
     case badData
@@ -13,39 +14,22 @@ enum NetworkError: Error {
     case systemError
 }
 
-/// This class handles all the networking to the Just Eat API.
-///
-/// NB: Call the singleton `shared()` to use this class.
-//class NetworkManager {
-//
-//    // MARK: - Properties
-//    private lazy var baseURL = URL(string: "https://imdb-api.com/en/API/Top250Movies/k_x3hy019r")
-//
-//    /// Fetch a list of movies from a string input.
-//    ///
-//    func fetchMovies() {
-//        // URL
-//        guard let url = baseURL else {
-//            print("Issue with baseURL: \(#function)")
-//            return
-//        }
-//        let request = URLRequest(url: url)
-//        URLSession.shared.dataTask(with: request) { data, response, error in
-//            if let data = data {
-//                if let decodedResponse = try? JSONDecoder().decode(Movies.self, from: data) {
-//                    // we have good data – go back to the main thread
-//                    DispatchQueue.main.async {
-//                        // update our UI
-//                        self.movies = decodedResponse.items
-//                    }
-//
-//                    // everything is good, so we can exit
-//                    return
-//                }
-//            }
-//
-//            // if we're still here it means there was a problem
-//            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
-//        }.resume()
-//    }
-//}
+class ImageLoader: ObservableObject {
+    var didChange = PassthroughSubject<Data, Never>()
+    var data = Data() {
+        didSet {
+            didChange.send(data)
+        }
+    }
+
+    init(urlString:String) {
+        guard let url = URL(string: urlString) else { return }
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data else { return }
+            DispatchQueue.main.async {
+                self.data = data
+            }
+        }
+        task.resume()
+    }
+}

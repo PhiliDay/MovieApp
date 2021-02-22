@@ -12,13 +12,18 @@ struct HomeView: View {
 
     var body: some View {
         List(movies) { movie in
-            Text(movie.title)
-                .padding()
+            HStack {
+                ImageView(withURL: movie.image)
+                VStack(alignment: .leading) {
+                    Text(movie.fullTitle)
+                    Text("Rating: \(movie.imDbRating)")
+                }
+            }
         }.onAppear() {
             Api().getMovies { (movies) in
                 self.movies = movies
+            }
         }
-    }
     }
 }
 
