@@ -36,9 +36,11 @@ struct HomeView: View {
                                 .clipped()
                         }
                     }
+                    NavigationLink(destination: DetailView()) {
+                        Text("Do Something")
+                    }
                 }.onDelete(perform: self.deleteRow)
                  .onMove(perform: onMove)
-
                 }.onAppear() {
                     Api().getMovies { (movies) in
                         self.movies = movies
