@@ -1,14 +1,14 @@
 //
-//  ImageView.swift
+//  FullImageView.swift
 //  Movies
 //
-//  Created by Philippa Day on 22/02/2021.
+//  Created by Philippa Day on 23/02/2021.
 //
 
 import Combine
 import SwiftUI
 
-struct ImageView: View {
+struct FullImageView: View {
     @ObservedObject var imageLoader:ImageLoader
     @State var image:UIImage = UIImage()
 
@@ -21,7 +21,6 @@ struct ImageView: View {
             Image(uiImage: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
         }.onReceive(imageLoader.didChange) { data in
             self.image = UIImage(data: data) ?? UIImage()
         }
