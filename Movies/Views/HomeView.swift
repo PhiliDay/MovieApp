@@ -10,24 +10,17 @@ import SwiftUI
 struct HomeView: View {
     @State var movies: [Movie] = []
     @State private var tapped: Bool = false
-    @State private var isLoading: Bool = false
 
     @ViewBuilder
     var body: some View {
-//        Need to figure out this
-//        if movies.isEmpty {
-//            noDataView
-//        }
-//        else {
             mainMovieListView
-//        }
     }
 
     var noDataView: some View {
         VStack {
             Text("No Data").padding()
             Button("Fetch Data") {
-                fetchMovies()
+                setMovies()
             }
         }
     }
@@ -70,7 +63,7 @@ struct HomeView: View {
             }.onDelete(perform: deleteRow)
              .onMove(perform: onMove)
             }.onAppear() {
-                fetchMovies()
+                setMovies()
             }
             .navigationBarItems(leading: EditButton())
         .navigationBarTitle(UI.Strings.topMovies, displayMode: .inline)
@@ -94,7 +87,7 @@ extension HomeView {
         self.movies.move(fromOffsets: source, toOffset: destination)
     }
 
-    private func fetchMovies() {
+    private func setMovies() {
         NetworkManager().getMovies { result in
             switch result {
             case .success(let results):

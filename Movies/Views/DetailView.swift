@@ -12,6 +12,7 @@ struct DetailView: View {
     @State private var tapped: Bool = false
 
     var body: some View {
+        // tapped button used to update view positioning from top to bottom
         if !tapped {
         topView
 

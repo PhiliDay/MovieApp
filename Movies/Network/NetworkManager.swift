@@ -25,6 +25,7 @@ class NetworkManager {
         // Network Call
         URLSession.shared.dataTask(with: url) { data, response, error -> Void in
             guard let data = data else {
+                completion(.failure(NetworkError.badData))
                 print("Error with data")
                 return
             }
@@ -45,7 +46,7 @@ class NetworkManager {
                 }
             } catch {
                 print("Failure: \(error.localizedDescription)")
-                completion(.failure(error))
+                completion(.failure(NetworkError.failedToParseData))
                 return
             }
         }.resume()

@@ -7,6 +7,7 @@
 * Edit button enables deleting and rearranging of list
 * Click button to extend the cell and see the crew names
 * Detail view, can click the button to rearrange order
+* Images download and cache
 
 ## Issues I overcame:
 
@@ -20,8 +21,10 @@
 ## What I want to improve:
 
 * A more smooth transition of the extension of the cell.
-* I feel like there’s a better way of swapping the image on touch of the button
+* I feel like there’s a better way of swapping the image on touch of the button.
 * Obviously the layout isn’t ideal - all quite squished, alignment of the button looks funky.
+* Differentation in size of ImageView is clunky, would like to make a more efficient way to do this.
+* Currently on click every row expands rather than the individual row
 
 ## What I would add if I had more time:
 
