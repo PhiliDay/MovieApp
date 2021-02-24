@@ -14,12 +14,13 @@ struct HomeView: View {
 
     @ViewBuilder
     var body: some View {
-        if movies.isEmpty {
-            noDataView
-        }
-        else {
+//        Need to figure out this
+//        if movies.isEmpty {
+//            noDataView
+//        }
+//        else {
             mainMovieListView
-        }
+//        }
     }
 
     var noDataView: some View {
