@@ -62,8 +62,13 @@ struct HomeView: View {
             }.onDelete(perform: self.deleteRow)
              .onMove(perform: onMove)
             }.onAppear() {
-                Api().getMovies { (movies) in
-                    self.movies = movies
+                Api().getMovies { result in
+                    switch result {
+                    case .success(let results):
+                        self.movies = results
+                    case .failure(let error):
+                        print(error)
+                    }
                 }
             }
             .navigationBarItems(leading: EditButton())
