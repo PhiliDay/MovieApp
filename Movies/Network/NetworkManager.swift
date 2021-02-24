@@ -18,7 +18,7 @@ class Api {
     @Published var loading = false
 
     func getMovies(completion: @escaping ([Movie]) -> ()) {
-        guard let url = URL(string: "https://imdb-api.com/en/API/Top250Movies/k_x3hy019r") else {
+        guard let url = URL(string: UI.Strings.url) else {
             return
         }
         URLSession.shared.dataTask(with: url) { (data, response, error) in

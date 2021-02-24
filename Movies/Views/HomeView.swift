@@ -40,9 +40,11 @@ struct HomeView: View {
                         SmallImageWithURL(movie.image)
                         VStack(alignment: .leading) {
                             Text(movie.fullTitle)
-                            Text("Rating: \(movie.imDbRating)")
+                                .font(.system(size: 15))
+                            Text(UI.Strings.rating + "\(movie.imDbRating)")
+                                .font(.system(size: 15))
                         }
-                        Image("Icon-ChevronUpDown")
+                        Image(UI.Strings.chevronIcon)
                             .onTapGesture(perform: {
                                 withAnimation(.easeInOut(duration: 0.5)) {
                                     tapped.toggle()
@@ -65,7 +67,7 @@ struct HomeView: View {
                 }
             }
             .navigationBarItems(leading: EditButton())
-            .navigationBarTitle("Top Movies", displayMode: .inline)
+        .navigationBarTitle(UI.Strings.topMovies, displayMode: .inline)
         }
     }
 

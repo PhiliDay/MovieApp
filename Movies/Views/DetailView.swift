@@ -17,7 +17,7 @@ struct DetailView: View {
 
         .navigationBarTitle(movie.title, displayMode: .inline)
         .navigationBarItems(trailing:
-                                Image("Icon-ArrowsUpDown").onTapGesture {
+                                Image(UI.Strings.upDownArrow).onTapGesture {
                                     tapped.toggle()
                                 })
         }
@@ -30,18 +30,18 @@ struct DetailView: View {
         VStack(alignment: .leading) {
             BigImageWithURL(movie.image)
             Text(movie.fullTitle)
-            Text("Rating: \(movie.imDbRating)")
+            Text(UI.Strings.rating + "\(movie.imDbRating)")
             Text(movie.crew)
-        }
+        }.padding()
     }
 
     var bottomView: some View {
         VStack(alignment: .leading) {
             Text(movie.fullTitle)
-            Text("Rating: \(movie.imDbRating)")
+            Text(UI.Strings.rating + "\(movie.imDbRating)")
             Text(movie.crew)
             BigImageWithURL(movie.image)
-        }
+        }.padding()
     }
 }
 
