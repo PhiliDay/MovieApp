@@ -33,26 +33,3 @@ struct Movie: Codable, Identifiable {
     #endif
 }
 
-class Api {
-    @Published var loading = false
-
-    func getMovies(completion: @escaping ([Movie]) -> ()) {
-        guard let url = URL(string: "https://imdb-api.com/en/API/Top250Movies/k_x3hy019r") else {
-            return
-        }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let data = data else {
-                return
-            }
-            self.loading = true
-            let movies = try! JSONDecoder().decode(Movies.self, from: data)
-            print(movies)
-            let movie = movies.items
-            DispatchQueue.main.async {
-                completion(movie)
-                self.loading = false
-            }
-        }.resume()
-    }
-
-}

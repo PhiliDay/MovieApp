@@ -37,8 +37,7 @@ struct HomeView: View {
                 NavigationLink(destination: DetailView(movie: movie)) {
                 VStack {
                     HStack {
-                        ImageView(withURL: movie.image)
-                        
+                        SmallImageWithURL(movie.image)
                         VStack(alignment: .leading) {
                             Text(movie.fullTitle)
                             Text("Rating: \(movie.imDbRating)")

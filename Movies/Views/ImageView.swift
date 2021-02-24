@@ -2,28 +2,39 @@
 //  ImageView.swift
 //  Movies
 //
-//  Created by Philippa Day on 22/02/2021.
+//  Created by Philippa Day on 24/02/2021.
 //
 
-import Combine
+import Foundation
 import SwiftUI
 
-struct ImageView: View {
-    @ObservedObject var imageLoader:ImageLoader
-    @State var image:UIImage = UIImage()
+struct SmallImageWithURL: View {
 
-    init(withURL url: String) {
-        imageLoader = ImageLoader(urlString:url)
+    @ObservedObject var imageLoader: ImageLoaderAndCache
+
+    init(_ url: String) {
+        imageLoader = ImageLoaderAndCache(imageURL: url)
     }
 
     var body: some View {
-        VStack {
-            Image(uiImage: image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 100)
-        }.onReceive(imageLoader.didChange) { data in
-            self.image = UIImage(data: data) ?? UIImage()
-        }
+          Image(uiImage: UIImage(data: self.imageLoader.imageData) ?? UIImage())
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 100, height: 100)
+    }
+}
+
+struct BigImageWithURL: View {
+
+    @ObservedObject var imageLoader: ImageLoaderAndCache
+
+    init(_ url: String) {
+        imageLoader = ImageLoaderAndCache(imageURL: url)
+    }
+
+    var body: some View {
+          Image(uiImage: UIImage(data: self.imageLoader.imageData) ?? UIImage())
+            .resizable()
+            .aspectRatio(contentMode: .fit)
     }
 }
