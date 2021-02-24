@@ -1,5 +1,6 @@
 # Moments of Space
 
+This is a SwiftUI project implementing a movie list using the IMDB api.
 ## What I have implemented:
 
 * Ability to click on a movie and display detail view
