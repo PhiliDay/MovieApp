@@ -14,9 +14,7 @@ enum NetworkError: Error {
     case systemError
 }
 
-class Api {
-    @Published var loading = false
-
+class NetworkManager {
     func getMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
         // URL
         guard let url = URL(string: UI.Strings.url) else {
@@ -27,6 +25,7 @@ class Api {
         // Network Call
         URLSession.shared.dataTask(with: url) { data, response, error -> Void in
             guard let data = data else {
+                print("Error with data")
                 return
             }
 
@@ -36,17 +35,20 @@ class Api {
                 return
             }
 
-            self.loading = true
-            let jsonDecoder = JSONDecoder()
-            let movies = try! jsonDecoder.decode(Movies.self, from: data)
+            do {
+                let jsonDecoder = JSONDecoder()
+                let movies = try jsonDecoder.decode(Movies.self, from: data)
+                let movie = movies.items
 
-            print(movies)
-            let movie = movies.items
-            DispatchQueue.main.async {
-                completion(.success(movie))
-                self.loading = false
+                DispatchQueue.main.async {
+                    completion(.success(movie))
+                }
+            } catch {
+                print("Failure: \(error.localizedDescription)")
+                completion(.failure(error))
+                return
             }
         }.resume()
     }
-
+    
 }

@@ -10,16 +10,23 @@ import SwiftUI
 struct HomeView: View {
     @State var movies: [Movie] = []
     @State private var tapped: Bool = false
+    @State private var isLoading: Bool = false
 
     @ViewBuilder
     var body: some View {
-        mainMovieListView
+        if movies.isEmpty {
+            noDataView
+        }
+        else {
+            mainMovieListView
+        }
     }
 
     var noDataView: some View {
         VStack {
             Text("No Data").padding()
             Button("Fetch Data") {
+                fetchMovies()
             }
         }
     }
@@ -46,7 +53,7 @@ struct HomeView: View {
                         }
                         Image(UI.Strings.chevronIcon)
                             .onTapGesture(perform: {
-                                withAnimation(.easeInOut(duration: 0.5)) {
+                                withAnimation(.easeInOut(duration: 1)) {
                                     tapped.toggle()
                                 }
                             })
@@ -59,29 +66,14 @@ struct HomeView: View {
                     }
                 }
                 }
-            }.onDelete(perform: self.deleteRow)
+            }.onDelete(perform: deleteRow)
              .onMove(perform: onMove)
             }.onAppear() {
-                Api().getMovies { result in
-                    switch result {
-                    case .success(let results):
-                        self.movies = results
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
+                fetchMovies()
             }
             .navigationBarItems(leading: EditButton())
         .navigationBarTitle(UI.Strings.topMovies, displayMode: .inline)
         }
-    }
-
-    private func deleteRow(at indexSet: IndexSet) {
-        self.movies.remove(atOffsets: indexSet)
-    }
-
-    private func onMove(source: IndexSet, destination: Int) {
-        self.movies.move(fromOffsets: source, toOffset: destination)
     }
 }
 
@@ -89,5 +81,26 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+    }
+}
+
+extension HomeView {
+    private func deleteRow(at indexSet: IndexSet) {
+        self.movies.remove(atOffsets: indexSet)
+    }
+
+    private func onMove(source: IndexSet, destination: Int) {
+        self.movies.move(fromOffsets: source, toOffset: destination)
+    }
+
+    private func fetchMovies() {
+        NetworkManager().getMovies { result in
+            switch result {
+            case .success(let results):
+                self.movies = results
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
