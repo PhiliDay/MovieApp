@@ -10,10 +10,15 @@ import SwiftUI
 struct HomeView: View {
     @State var movies: [Movie] = []
     @State private var tapped: Bool = false
+    @State var count: Int = 0
 
     @ViewBuilder
     var body: some View {
+        if movies.isEmpty, count !=  0 {
+            noDataView
+        } else {
             mainMovieListView
+        }
     }
 
     var noDataView: some View {
@@ -38,7 +43,8 @@ struct HomeView: View {
                 NavigationLink(destination: DetailView(movie: movie)) {
                 VStack {
                     HStack {
-                        SmallImageWithURL(movie.image)
+                        ImageWithURL(movie.image)
+                            .frame(width: 100, height: 100)
                         VStack(alignment: .leading) {
                             Text(movie.fullTitle)
                                 .font(.system(size: 15))
@@ -92,7 +98,9 @@ extension HomeView {
             switch result {
             case .success(let results):
                 self.movies = results
+                count = 0
             case .failure(let error):
+                count += 1
                 print(error)
             }
         }

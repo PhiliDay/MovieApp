@@ -8,23 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct SmallImageWithURL: View {
-
-    @ObservedObject var imageLoader: ImageLoaderAndCache
-
-    init(_ url: String) {
-        imageLoader = ImageLoaderAndCache(imageURL: url)
-    }
-
-    var body: some View {
-          Image(uiImage: UIImage(data: self.imageLoader.imageData) ?? UIImage())
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 100, height: 100)
-    }
-}
-
-struct BigImageWithURL: View {
+struct ImageWithURL: View {
 
     @ObservedObject var imageLoader: ImageLoaderAndCache
 
@@ -38,3 +22,18 @@ struct BigImageWithURL: View {
             .aspectRatio(contentMode: .fit)
     }
 }
+
+//struct BigImageWithURL: View {
+//
+//    @ObservedObject var imageLoader: ImageLoaderAndCache
+//
+//    init(_ url: String) {
+//        imageLoader = ImageLoaderAndCache(imageURL: url)
+//    }
+//
+//    var body: some View {
+//          Image(uiImage: UIImage(data: self.imageLoader.imageData) ?? UIImage())
+//            .resizable()
+//            .aspectRatio(contentMode: .fit)
+//    }
+//}

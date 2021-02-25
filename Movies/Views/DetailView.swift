@@ -29,7 +29,7 @@ struct DetailView: View {
 
     var topView: some View {
         VStack(alignment: .leading) {
-            BigImageWithURL(movie.image)
+            ImageWithURL(movie.image)
             Text(movie.fullTitle)
             Text(UI.Strings.rating + "\(movie.imDbRating)")
             Text(movie.crew)
@@ -41,7 +41,7 @@ struct DetailView: View {
             Text(movie.fullTitle)
             Text(UI.Strings.rating + "\(movie.imDbRating)")
             Text(movie.crew)
-            BigImageWithURL(movie.image)
+            ImageWithURL(movie.image)
         }.padding()
     }
 }
