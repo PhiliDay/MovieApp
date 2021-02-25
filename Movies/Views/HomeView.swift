@@ -93,7 +93,7 @@ extension HomeView {
         self.movies.move(fromOffsets: source, toOffset: destination)
     }
 
-    private func setMovies() {
+    func setMovies() {
         NetworkManager().getMovies { result in
             switch result {
             case .success(let results):

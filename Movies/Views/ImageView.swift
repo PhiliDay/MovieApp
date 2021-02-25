@@ -22,18 +22,3 @@ struct ImageWithURL: View {
             .aspectRatio(contentMode: .fit)
     }
 }
-
-//struct BigImageWithURL: View {
-//
-//    @ObservedObject var imageLoader: ImageLoaderAndCache
-//
-//    init(_ url: String) {
-//        imageLoader = ImageLoaderAndCache(imageURL: url)
-//    }
-//
-//    var body: some View {
-//          Image(uiImage: UIImage(data: self.imageLoader.imageData) ?? UIImage())
-//            .resizable()
-//            .aspectRatio(contentMode: .fit)
-//    }
-//}
