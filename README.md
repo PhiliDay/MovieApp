@@ -11,6 +11,8 @@ This is a SwiftUI project implementing a movie list using the ImDb api.
 * Detail view, can click the button to rearrange order
 * Images download and cache
 * Fetch data screen, if there is no data then the user is able to refresh the screen (used Charles to test this)
+* Activity Indicator shows user the data is loading
+* Basic Unit and Snapshot tests - uses dependency https://github.com/pointfreeco/swift-snapshot-testing for snapshot testing
 
 ## Issues I had:
 
@@ -22,7 +24,7 @@ This is a SwiftUI project implementing a movie list using the ImDb api.
 
 * Initially when implementing the fetch data screen, it would show before the first API call as the movies array would be empty.  I added a count so that it would only appear after this first call.
 
-*Currently unable to get the ActivityIndicatorView to disappear if the API has finished fetching.  View stays currently.
+* Currently unable to get the ActivityIndicatorView to disappear if the API has finished fetching.  View stays currently.
 
 
 ## What I want to improve:
@@ -32,9 +34,15 @@ This is a SwiftUI project implementing a movie list using the ImDb api.
 * Obviously the layout isn’t ideal - all quite squished, alignment of the button looks funky.
 * Currently on click every row expands rather than the individual row
 * Quite slow - looking into this (started in last few commits)
-* Figure out removing activity indicator
+* Figure out removing activity indicator view
+* Testing
+* Design pattern could be nicer
 
 ## What I would add if I had more time:
 
 ###### v1
 * Testing
+* Loading
+
+###### v2
+* Better layout / UI

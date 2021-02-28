@@ -36,7 +36,7 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "A1B1C926-D1D1-4F52-9528-845AFB6EA958 - 6b95667ab809f2ff"
+                  uuid = "A1B1C926-D1D1-4F52-9528-845AFB6EA958 - 6b95667ab809f2b1"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,12 +46,12 @@
                   urlString = "file:///Users/philippa.day/Documents/Movies/Movies/Views/HomeView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "100"
-                  endingLineNumber = "100"
-                  offsetFromSymbolStart = "30">
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "129">
                </Location>
                <Location
-                  uuid = "A1B1C926-D1D1-4F52-9528-845AFB6EA958 - 6378f48f21f5f1d4"
+                  uuid = "A1B1C926-D1D1-4F52-9528-845AFB6EA958 - 6378f48f21f5f012"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -61,9 +61,9 @@
                   urlString = "file:///Users/philippa.day/Documents/Movies/Movies/Views/HomeView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "105"
-                  endingLineNumber = "105"
-                  offsetFromSymbolStart = "211">
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "193">
                </Location>
             </Locations>
          </BreakpointContent>
