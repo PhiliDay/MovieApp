@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct HomeView: View {
     @State var movies: [Movie] = []
     @State private var tapped: Bool = false
     @State var count: Int = 0
+    @State private var isAnimating = false
 
-    @ViewBuilder
     var body: some View {
+
         if movies.isEmpty, count !=  0 {
             noDataView
         } else {
@@ -38,41 +40,42 @@ struct HomeView: View {
 
     var mainMovieListView: some View {
         NavigationView {
-        List {
-            ForEach(movies) { movie in
-                NavigationLink(destination: DetailView(movie: movie)) {
-                VStack {
-                    HStack {
-                        ImageWithURL(movie.image)
-                            .frame(width: 100, height: 100)
-                        VStack(alignment: .leading) {
-                            Text(movie.fullTitle)
-                                .font(.system(size: 15))
-                            Text(UI.Strings.rating + "\(movie.imDbRating)")
-                                .font(.system(size: 15))
-                        }
-                        Image(UI.Strings.chevronIcon)
-                            .onTapGesture(perform: {
-                                withAnimation(.easeInOut(duration: 1)) {
-                                    tapped.toggle()
+//            ActivityIndicator(isAnimating: $isAnimating, style: .large)
+            List {
+                ForEach(movies) { movie in
+                    NavigationLink(destination: DetailView(movie: movie)) {
+                        VStack {
+                            HStack {
+                                ImageWithURL(movie.image)
+                                    .frame(width: 100, height: 100)
+                                VStack(alignment: .leading) {
+                                    Text(movie.fullTitle)
+                                        .font(.system(size: 15))
+                                    Text(UI.Strings.rating + "\(movie.imDbRating)")
+                                        .font(.system(size: 15))
                                 }
-                            })
-                    }
+                                Image(UI.Strings.chevronIcon)
+                                    .onTapGesture(perform: {
+                                        withAnimation(.easeInOut(duration: 1)) {
+                                            tapped.toggle()
+                                        }
+                                    })
+                            }
 
-                    if tapped {
-                        Text(movie.crew)
-                            .padding()
-                            .clipped()
+                            if tapped {
+                                Text(movie.crew)
+                                    .padding()
+                                    .clipped()
+                            }
+                        }
                     }
-                }
-                }
-            }.onDelete(perform: deleteRow)
-             .onMove(perform: onMove)
+                }.onDelete(perform: deleteRow)
+                .onMove(perform: onMove)
             }.onAppear() {
                 setMovies()
             }
             .navigationBarItems(leading: EditButton())
-        .navigationBarTitle(UI.Strings.topMovies, displayMode: .inline)
+            .navigationBarTitle(UI.Strings.topMovies, displayMode: .inline)
         }
     }
 }
@@ -95,10 +98,14 @@ extension HomeView {
 
     func setMovies() {
         NetworkManager().getMovies { result in
+            defer {
+                self.isAnimating = true
+            }
             switch result {
             case .success(let results):
                 self.movies = results
                 count = 0
+                self.isAnimating = false
             case .failure(let error):
                 count += 1
                 print(error)
