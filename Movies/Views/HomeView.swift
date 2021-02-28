@@ -40,8 +40,9 @@ struct HomeView: View {
 
     var mainMovieListView: some View {
         NavigationView {
-//            ActivityIndicator(isAnimating: $isAnimating, style: .large)
             List {
+                //Need to figure out how to make view disappear
+                ActivityIndicator(isAnimating: $isAnimating, style: .large)
                 ForEach(movies) { movie in
                     NavigationLink(destination: DetailView(movie: movie)) {
                         VStack {
@@ -97,15 +98,15 @@ extension HomeView {
     }
 
     func setMovies() {
+        self.isAnimating = true
         NetworkManager().getMovies { result in
             defer {
-                self.isAnimating = true
+                self.isAnimating = false
             }
             switch result {
             case .success(let results):
                 self.movies = results
                 count = 0
-                self.isAnimating = false
             case .failure(let error):
                 count += 1
                 print(error)
