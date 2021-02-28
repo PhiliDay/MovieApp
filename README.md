@@ -46,3 +46,4 @@ This is a SwiftUI project implementing a movie list using the ImDb api.
 
 ###### v2
 * Better layout / UI
+* Error View
